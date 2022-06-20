@@ -28,20 +28,46 @@ const myStyle = StyleSheet.create({
 
 });
 
+/*
+    { (() => {}) () }
 
-// App은 한개만 있어야한다! 리턴도 한개! (그래서 텍스트 여러개일때 view, fragment같은걸로 묶어서 한개로 만듬)
+    제일 바깥 중괄호 : 변수 쓰기 -> 이 안에서 프로그램을 하겠다!
+*/
+
 const App = () => {
-    const name = "김국민";  // 중괄호 : 변수 이름 쓸 때! (const(read only variable), let <= var)
-    return (
+    const name = "KB"; 
+    return(
         <View style = {styles.container}>  
-            <Text>이름: {name}</Text>
-            <Text>이름: 홍길동</Text>
-            <Text style={styles.text}>이름: {name}</Text>
-            <Text style={styles.nameText}>이름: 홍길동</Text>
-            <Text>이름: {name}</Text>
+            <Text style={styles.text}>
+                { (() => {
+                    if(name === "KB") return 'COMPANY : KBSTAR';
+                    else if(name == "kb") return 'company : kbstar';
+                    else return "회사명 : 국민은행";
+                }) () }
+            </Text>
 
-            <Text style={myStyle.company}>회사명 : 국민은행</Text>
-            <Text style={myStyle.email}>이메일 : kookmin@kbfg.com</Text>
+            <Text style={styles.text}> 
+                My Company is { name === "KB" ? 'name KB' : 'Facebook' }    {/* 삼항연산자  (a > b ? 참 : 거짓) */}
+            </Text>
+            
+            <Text>논리연산자 AND : </Text>
+
+            { name === "KB" && (
+                <Text style={styles.text}> AND 연산 테스트1 </Text>      
+                // 이 라인은 !null 이니까, 항상 참! ( name === "KB" 면 뒤에까지 오니까 출력하고, 틀리면 뒤에까지 못오고 멈춰서 출력안함 ) -> if 대신 쓰기 좋다
+            ) }
+
+            { name !== "KB1" && (
+                <Text style={styles.text}> AND 연산 테스트2 </Text>      
+            ) }
+
+            <Text>논리연산자 OR : </Text>
+
+            { name !== "KB" || (
+                <Text style={styles.text}> OR 연산 테스트 </Text>      
+                // OR은 이거 쓸일이 잘 없을 것.. AND에 if보다 편하다
+            ) }
+
         </View>
     );
 };
