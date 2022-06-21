@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 export const viewStyle = StyleSheet.create({
     container : {
         flex : 1,
-        backgroundColor : '#CDEFAB',
+        backgroundColor : '#FFFFFF',
         alignItems : 'center', // 좌우정렬
         justifyContent : 'center',
     },
