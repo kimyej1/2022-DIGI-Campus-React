@@ -25,11 +25,11 @@ const App = () => {
                 onPress={ () => alert("Click") }
             />
 
-            <MyButton title="React"/>
-            <MyButton title="Native"/>
-            <MyButton />
-            <MyButton title="World"/>
-            <MyButton> Children </MyButton>
+            <MyButton title="React" onPress={() => alert('React')}/>
+            <MyButton title="Native" onPress={() => { alert('Native') }}/>
+            {/* <MyButton /> */}
+            <MyButton title="World" onPress={() => alert('Title')}/>
+            <MyButton onPress ={() => alert('Children')}> Children </MyButton>
                 
         </View>
     );
