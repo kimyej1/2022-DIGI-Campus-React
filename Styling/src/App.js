@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';  // react의 내장 컴포넌트 (built-in)
 import MyButton from './components/MyButton';       // components/MyButton을 사용하기
+import Counter from './components/Counter';
 
 const App = () => {
     return (
@@ -30,6 +31,8 @@ const App = () => {
             {/* <MyButton /> */}
             <MyButton title="World" onPress={() => alert('Title')}/>
             <MyButton onPress ={() => alert('Children')}> Children </MyButton>
+
+            <Counter />
                 
         </View>
     );
@@ -48,5 +51,12 @@ export default App;
     나만의 버튼 : Custom button -> MyButton
         <img src = 'a.jpg' width='100' alt='test'>
 
-    Property, attrivute => props
+    Property, attribute => props
+
+    const [a, b] = useState(init);
+    const [state, setState] = useState(initState);
+        useState() 호출될 때, 파라미터 initState 라는 값을 초기값으로 전달
+        state라는 값을 반환하고,
+        setState() : setter
+
 */
