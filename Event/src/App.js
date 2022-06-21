@@ -8,12 +8,18 @@ import { Header, Contents, Footer } from './components/Layout';
 const App = () => {
     // 속성 중 겹치는게 있으면 배열 중 뒤에껄 따라간다 (안겹치는 것들은 다 적용됨)
     return (
+        <View style={styles.container}>
+            <View style={styles.item1} />
+            <View style={styles.item2} />
+            <View style={styles.item3} />
+        </View>
+
+    /*
         <View style={viewStyle.container}> 
             <Header />
             <Contents />
             <Footer />
 
-        {/*
             <Text style={styles.text}>
                 Style CSS
             </Text>
@@ -32,14 +38,25 @@ const App = () => {
 
             <EventButton />
             <EventInput />
-        */}
-        
+
         </View>
+    */
     );
 };
 
 // Class형 StyleSheet
 const styles = StyleSheet.create({
+
+    container : {flex : 1, flexDirection : 'column-reverse'},
+    /*
+        flexDirection : 4가지
+            row, column, row-reverse, column-reverse
+    */
+    item1 : {flex : 1, backgroundColor : '#ABCDEF'},
+    item2 : {flex : 1, backgroundColor : '#CDEFAB'},
+    item3 : {flex : 1, backgroundColor : '#EFABCD'},
+
+    /*
     container : {
         flex : 1,
         backgroundColor : '#FFFFFF',
@@ -58,6 +75,7 @@ const styles = StyleSheet.create({
         fontWeight : '300',
         color : '#333333'
     }
+    */
 });
 
 export default App;
