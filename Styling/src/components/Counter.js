@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';    // 상태정보를 관리하기 위해 useState 사용
 import { View, Text } from 'react-native';
 import MyButton from './MyButton';  // 같은 위치니까 /components/ 없이 그냥 MyButton
 
