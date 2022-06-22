@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 const ButtonContainer = styled.TouchableOpacity`
     background-color : ${ props => 
-        props.title == 'React' ? '#3499dd' : '#9a60b5'
+        props.title == 'React' ? props.theme.blue : props.theme.purple
     };
     border-radius : 10px;
     padding : 15px 20px;
@@ -14,7 +14,7 @@ const ButtonContainer = styled.TouchableOpacity`
 const Title = styled.Text`
     font-size : 20px;
     font-weight : 600;
-    color : #FFFFFF;
+    color : ${props => props.theme.text};
 `;
 
 const Button = props => {
