@@ -4,14 +4,20 @@ import EventButton from './components/EventButton';
 import EventInput from './components/EventInput';
 import { textStyle, viewStyle } from './styles';
 import { Header, Contents, Footer } from './components/Layout';
+import ShadowBox from './components/ShadowBox';
 
 const App = () => {
     // 속성 중 겹치는게 있으면 배열 중 뒤에껄 따라간다 (안겹치는 것들은 다 적용됨)
     return (
         <View style={styles.container}>
+            
+            <ShadowBox>그림자</ShadowBox>
+
+        {/*
             <View style={styles.item1} />
             <View style={styles.item2} />
             <View style={styles.item3} />
+        */}
         </View>
 
     /*
@@ -47,7 +53,12 @@ const App = () => {
 // Class형 StyleSheet
 const styles = StyleSheet.create({
 
-    container : {flex : 1, flexDirection : 'column-reverse'},
+    container : {
+        flex : 1, 
+        flexDirection : 'row',
+        justifyContent : 'center',
+        alignItems : 'center',
+    },
     /*
         flexDirection : 4가지
             row, column, row-reverse, column-reverse
