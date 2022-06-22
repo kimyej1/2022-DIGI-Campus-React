@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import { StatusBar } from 'react-native';
 import { theme } from './theme';
 import styled, { ThemeProvider } from 'styled-components/native';
+
 import Input from './components/Input';
+import IconButton from './components/IconButton';
+import { images } from './Images';
+import Task from './components/Task';
 
 // SafeAreaView : 노치 영역을 위해 뷰에 여백을 만들어준다.
 const Container = styled.SafeAreaView`  
@@ -56,7 +60,15 @@ const App = () => {
                     onChangeText={_onChangeText}
                     onSubmitEditing={_addTask}
                 />
-               
+
+                <Task title="First Schedule" />
+                <Task title="Second Schedule" />
+                <Task title="Third Schedule" />
+
+                {/* <IconButton type={images.completed} />
+                <IconButton type={images.uncompleted} />
+                <IconButton type={images.delete} />
+                <IconButton type={images.update} /> */}
             </Container>
         </ThemeProvider>
     );
