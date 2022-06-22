@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StatusBar } from 'react-native';
 import { theme } from './theme';
 import styled, { ThemeProvider } from 'styled-components/native';
@@ -8,7 +8,7 @@ import Input from './components/Input';
 const Container = styled.SafeAreaView`  
     flex : 1;
     background_color : ${({theme}) => theme.background};
-    align-item : center;
+    align-items : center;
     justify-content : flex-start;
 `;
 
@@ -24,10 +24,21 @@ const Title = styled.Text`
     font-weight : 600;
     color : ${({theme}) => theme.main};
     align-self: flex-start;
-    margin : 0;
+    margin : 20px;
 `;
 
 const App = () => {
+
+    const [newTask, setNewTask] = useState('');
+    const _onChangeText = text => {
+        console.log('change!!!', text);
+        setNewTask(text);
+    };
+    const _addTask = () => {
+        alert(`Schedule Added : ${newTask}`)  // ` 대신 ", '를 쓰면 $~를 프로그램영역으로 인식을 못함
+        setNewTask('');
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <Container>
@@ -39,8 +50,13 @@ const App = () => {
                 />
 
                 <Title>My Schedule</Title>
-                <Input />
-                <Input />
+                <Input 
+                    placeholder="+ Add Schedule"
+                    value={newTask}
+                    onChangeText={_onChangeText}
+                    onSubmitEditing={_addTask}
+                />
+               
             </Container>
         </ThemeProvider>
     );
