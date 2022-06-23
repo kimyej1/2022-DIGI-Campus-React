@@ -12,17 +12,24 @@ const Icon = styled.Image`
     tint-color : ${({theme}) => theme.text};
 `;
 
-const IconButton = props => {
+const IconButton = ({type, onPressOut, id}) => {
+    console.log('IconButton , IconButton , onPressOut = ', onPressOut)
+    const _onPressOut = () => {
+        console.log('IconButton , _onPressOut, id= ', id)
+        onPressOut(id); // onPressOut에는 deleteTask가 들어있고(Task.js), deleteTask에는 _deleteTask가 들어있음(App.js)
+    };
+
     return (
-        <TouchableOpacity>
-            <Icon source={props.type} />
+        <TouchableOpacity onPressOut={_onPressOut} >
+            <Icon source={type} />
         </TouchableOpacity>
     );
 };
 
 IconButton.propTypes = {
     types : propTypes.oneOf(Object.values(images)).isRequired,
-    
+    id : propTypes.string,
+    onPressOut : propTypes.func,
 };
 
 export default IconButton;
