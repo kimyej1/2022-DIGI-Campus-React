@@ -8,6 +8,8 @@ import IconButton from './components/IconButton';
 import { images } from './Images';
 import Task from './components/Task';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // SafeAreaView : 노치 영역을 위해 뷰에 여백을 만들어준다.
 const Container = styled.SafeAreaView`  
     flex : 1;
@@ -47,10 +49,10 @@ const App = () => {
     const [newTask, setNewTask] = useState('');
     const [tasks, setTasks] = useState({      // 초기값을 다시 JSON 타입으로... -> add 했을 때 이 tasks에 넣고, delete하면 지우고 등 해야함!
         '1' : { id:'1', title:'First Task', completed:false },
-        '2' : { id:'2', title:'Second Task', completed:true },
-        '3' : { id:'3', title:'Third Task', completed:true },
-        '4' : { id:'4', title:'Fourth Task', completed:false },
-        '5' : { id:'5', title:'Fifth Task', completed:false },
+        // '2' : { id:'2', title:'Second Task', completed:true },
+        // '3' : { id:'3', title:'Third Task', completed:true },
+        // '4' : { id:'4', title:'Fourth Task', completed:false },
+        // '5' : { id:'5', title:'Fifth Task', completed:false },
     });
     /*
         {
