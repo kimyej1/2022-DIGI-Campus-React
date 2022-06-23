@@ -11,7 +11,7 @@ const StyledInput = styled.TextInput.attrs(({theme}) => ({
 }))`
     width : ${ ({width}) => width - 40 }px;
     height : 60px;
-    margin : 20px 30px;
+    margin : 5px 0px;
     padding : 20px 20px;
     border-radius : 10px;
     background-color : ${({theme}) => theme.itemBackground};
@@ -19,7 +19,13 @@ const StyledInput = styled.TextInput.attrs(({theme}) => ({
     color : ${({theme}) => theme.text};
 `;
 
-const Input = props => {
+const Input = ({
+                    value, 
+                    placeholder, 
+                    onChangeText, 
+                    onSubmitEditing,
+                    onBlur,
+                }) => {    // props => {} 이렇게 해서, 아래 리턴값들을 {props.value} 이런식으로 해도됨
 
     // const width = Dimensions.get('window').width;
     const width = useWindowDimensions().width;  // 위, 아래 두개 같은 기능
@@ -27,15 +33,19 @@ const Input = props => {
     return (
         <StyledInput 
             width={width} 
-            placeholder={props.placeholder} 
-            maxLength={10} 
+            placeholder={placeholder} 
+            maxLength={30} 
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType = "done"  // 엔터(리턴) 하면 완료로 볼것인지?
             keyboardAppearance="dark"
-            onChangeText={props.onChangeText}
-            onSubmitEditing={props.onSubmitEditing}
-            value={props.value}
+
+            onChangeText={onChangeText}
+            onSubmitEditing={onSubmitEditing}
+            onBlur={onBlur}
+
+            value={value}
+            autoFocus={true}        // 자동 포커싱!
         />
     );
 };

@@ -94,6 +94,24 @@ const App = () => {
         console.log('App , _deleteTask, id = ', id);
     };
 
+    const _toggleTask = id => {
+        console.log('App , _toggleTask , id = ' , id);
+        const cloneTasks = Object.assign({}, tasks);
+        cloneTasks[id]['completed'] = !cloneTasks[id]['completed'];
+        setTasks(cloneTasks);
+    };
+
+    const _updateTask = item => {
+        console.log('App , _updateTask , item.title = ', item.title);
+        const cloneTasks = Object.assign({}, tasks);
+        cloneTasks[item.id] = item;
+        setTasks(cloneTasks);
+    };
+
+    const _onBlur = () => {     // 입력창에 입력하다가 포커스아웃 했을 때 다 지우고 + Add Schedule 로 복원해주려는 역할
+        setNewTask('');
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <Container>
@@ -110,12 +128,20 @@ const App = () => {
                     value={newTask}
                     onChangeText={_onChangeText}
                     onSubmitEditing={_addTask}
+                    onBlur={_onBlur}
                 />
 
                 <List width={width}>
                     {
                         Object.values(tasks).reverse().map(item => (
-                            <Task key={item.id} item={item} title={item.title} deleteTask={_deleteTask}/>
+                            <Task 
+                                key={item.id} 
+                                item={item} 
+
+                                deleteTask={_deleteTask}
+                                toggleTask={_toggleTask}
+                                updateTask={_updateTask}
+                            />
                         ))
                     }
 

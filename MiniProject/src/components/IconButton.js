@@ -26,6 +26,10 @@ const IconButton = ({type, onPressOut, id}) => {
     );
 };
 
+IconButton.defaultProps = {
+    onPressOut : () => {},  // do Nothing (혹시 onPressOut 없다면.. 아무것도 하지마)
+};
+
 IconButton.propTypes = {
     types : propTypes.oneOf(Object.values(images)).isRequired,
     id : propTypes.string,
