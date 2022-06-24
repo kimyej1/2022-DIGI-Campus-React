@@ -8,7 +8,8 @@ import IconButton from './components/IconButton';
 import { images } from './Images';
 import Task from './components/Task';
 
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppLoading from 'expo-app-loading';
 
 // SafeAreaView : 노치 영역을 위해 뷰에 여백을 만들어준다.
 const Container = styled.SafeAreaView`  
@@ -47,13 +48,7 @@ const App = () => {
     */
 
     const [newTask, setNewTask] = useState('');
-    const [tasks, setTasks] = useState({      // 초기값을 다시 JSON 타입으로... -> add 했을 때 이 tasks에 넣고, delete하면 지우고 등 해야함!
-        // '1' : { id:'1', title:'First Task', completed:false },
-        // '2' : { id:'2', title:'Second Task', completed:true },
-        // '3' : { id:'3', title:'Third Task', completed:true },
-        // '4' : { id:'4', title:'Fourth Task', completed:false },
-        // '5' : { id:'5', title:'Fifth Task', completed:false },
-    });
+    const [tasks, setTasks] = useState({  });    // 초기값을 다시 JSON 타입으로... -> add 했을 때 이 tasks에 넣고, delete하면 지우고 등 해야함!
     /*
         {
             1 : { },                                             -- 1번 데이터는 { } 이거야,
@@ -62,6 +57,7 @@ const App = () => {
             4 : { "id" : 4, "title" : "hello", "completed" : true },    -- id가 있어야 지울때, 더할때도 순서 등.. 관리하기가 쉽다!
         }
     */
+    const [isReady, setIsReady] = useState(false);
 
     const _onChangeText = text => {
         console.log('change!!!', text);
@@ -88,33 +84,56 @@ const App = () => {
     };
 
     const _deleteTask = id => {     // key(id)가 있어야만 지울 수 있음 -> param = id
+        console.log('App , _deleteTask, id = ', id);
 
         // setter 밖에 없으므로, 통째로 deep copy 해서 가져와서, 하나 지운담에 그걸 다시 set 해야함
         const cloneTasks = Object.assign({}, tasks);    // Object.assign(복사를 반영할 객체, 복사할 객체)
         delete cloneTasks[id];
-        setTasks(cloneTasks);
-        console.log('App , _deleteTask, id = ', id);
+
+        // setTasks(cloneTasks);
+        _saveTask(cloneTasks);
     };
 
     const _toggleTask = id => {
         console.log('App , _toggleTask , id = ' , id);
         const cloneTasks = Object.assign({}, tasks);
         cloneTasks[id]['completed'] = !cloneTasks[id]['completed'];
-        setTasks(cloneTasks);
+
+        // setTasks(cloneTasks);
+        _saveTask(cloneTasks);
     };
 
     const _updateTask = item => {
         console.log('App , _updateTask , item.title = ', item.title);
         const cloneTasks = Object.assign({}, tasks);
         cloneTasks[item.id] = item;
-        setTasks(cloneTasks);
+
+        // setTasks(cloneTasks);
+        _saveTask(cloneTasks);
+    };
+
+    const _saveTask = async tasks => {
+        try{
+            await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+            setTasks(tasks)
+        }catch (error) {
+            console.log('error: ', e);
+        }
+    };
+
+    const _loadTask = async () => {
+        console.log('_loatTask');
+        // 저장된 데이터 이름 : tasks
+        const loadTasks = await AsyncStorage.getItem('tasks');
+        setTasks(JSON.parse(loadTasks || '{}'));
     };
 
     const _onBlur = () => {     // 입력창에 입력하다가 포커스아웃 했을 때 다 지우고 + Add Schedule 로 복원해주려는 역할
         setNewTask('');
     };
 
-    return (
+    return isReady? (   // isReady 참이면 ThemeProvider, 거짓이면 AppLoading
+        console.log('isReady : true'),
         <ThemeProvider theme={theme}>
             <Container>
 
@@ -158,6 +177,13 @@ const App = () => {
                 <IconButton type={images.update} /> */}
             </Container>
         </ThemeProvider>
+    ) : (
+        console.log('isReady : false'),
+        <AppLoading 
+            startAsync={_loadTask}
+            onFinish={() => setIsReady(true)}   // 끝나면 true로 바꿔줌
+            onError={console.error}
+        />
     );
 };
 
